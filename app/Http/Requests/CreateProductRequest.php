@@ -20,7 +20,6 @@ class CreateProductRequest extends FormRequest
             'article' => ['required', 'string','max:255', Rule::unique('products'), 'regex:/^[a-zA-Z0-9]+$/'],
             'name' => ['required', 'string', 'max:255', 'min:10'],
             'status' => ['required', 'in:available,unavailable'],
-            //'data' => ['required', 'json'],
             'color' => ['required', 'string', 'max:255', 'min:2'],
             'size' => ['required', 'string', 'max:255'],
         ];
@@ -53,20 +52,11 @@ class CreateProductRequest extends FormRequest
                 'required' => 'Заполните поле',
                 'max' => 'Максимально допустимое значение: 5',
             ],
-//            'data' => [
-//                'required' => 'Заполните поле',
-//                'json' => 'Формат поля должен быть JSON'
-//            ],
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
         return redirect()->back()->withErrors($validator->errors())->withInput();
-//        throw new HttpResponseException(response()->json([
-//            'success' => false,
-//            'message' => 'Ошибка валидации',
-//            'error' => $validator->errors()
-//        ]));
     }
 }
